@@ -133,7 +133,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             return (
               <article
                 key={b.id}
-                className="flex min-w-0 flex-col gap-2.5 rounded-[14px] border border-[#E2E6DF] bg-white p-3 shadow-xs dark:border-[#28312B] dark:bg-[#1B211D] sm:gap-3 sm:p-4 md:col-span-6"
+                className="flex aspect-square min-w-0 min-h-0 flex-col gap-2 rounded-[14px] border border-[#E2E6DF] bg-white p-2.5 shadow-xs dark:border-[#28312B] dark:bg-[#1B211D] sm:gap-3 sm:p-4 md:col-span-6"
               >
                 <div className="flex items-center justify-between gap-1.5">
                   <span
