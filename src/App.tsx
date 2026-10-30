@@ -16,6 +16,8 @@ import type {
   Theme,
 } from './types/finance.ts';
 import { getSeedData } from './data/seedData.ts';
+import { exportTransactionsToCsv, todayISO } from './lib/calculations.ts';
+import { buildTransactionsPrintHtml } from './lib/dataExport.ts';
 import { Sidebar } from './components/Sidebar.tsx';
 import { MobileBottomNav } from './components/MobileBottomNav.tsx';
 import { Topbar } from './components/Topbar.tsx';
@@ -150,6 +152,90 @@ export default function App() {
       kind,
     };
     setToasts((prev) => [...prev, newToast]);
+  };
+
+  const handleExportCsv = () => {
+    if (state.transactions.length === 0) {
+      showToast(t('exportEmpty'), undefined, 'error');
+      return;
+    }
+
+    const csvContent = exportTransactionsToCsv(state.transactions, state.categories, {
+      date: t('date'),
+      type: t('type'),
+      category: t('category'),
+      note: t('noteOptional'),
+      amount: t('amount'),
+      incomeType: t('incomeType'),
+      expenseType: t('expenseType'),
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const objectUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = objectUrl;
+    anchor.download = `montrack-transactions-${todayISO()}.csv`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+
+    showToast(t('exportDone'));
+  };
+
+  const handleExportPdf = () => {
+    if (state.transactions.length === 0) {
+      showToast(t('exportEmpty'), undefined, 'error');
+      return;
+    }
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      showToast(t('exportPopupBlocked'), undefined, 'error');
+      return;
+    }
+
+    const printHtml = buildTransactionsPrintHtml(
+      state.transactions,
+      state.categories,
+      lang,
+      {
+        title: 'MONTRACK — ' + t('navTransactions'),
+        subtitle: t('exportAllTransactions'),
+        generatedAt: t('exportGeneratedAt'),
+        records: t('records'),
+        income: t('income'),
+        expenses: t('expenses'),
+        net: t('net'),
+        date: t('date'),
+        type: t('type'),
+        category: t('category'),
+        note: t('noteOptional'),
+        amount: t('amount'),
+        incomeType: t('incomeType'),
+        expenseType: t('expenseType'),
+        empty: t('exportEmpty'),
+      }
+    );
+
+    try {
+      printWindow.document.open();
+      printWindow.document.write(printHtml);
+      printWindow.document.close();
+      printWindow.opener = null;
+
+      window.setTimeout(() => {
+        if (printWindow.closed) return;
+        printWindow.focus();
+        printWindow.print();
+      }, 350);
+
+      showToast(t('exportPdfReady'));
+    } catch (error) {
+      printWindow.close();
+      showToast(t('exportPdfFailed'), undefined, 'error');
+      console.error('PDF print window failed:', error);
+    }
   };
 
   const handleNavigate = (page: PageId) => {
@@ -389,6 +475,8 @@ export default function App() {
         isOpenMobile={isMobileMenuOpen}
         onNavigate={handleNavigate}
         onCloseMobile={() => setIsMobileMenuOpen(false)}
+        onExportCsv={handleExportCsv}
+        onExportPdf={handleExportPdf}
       />
 
       {/* Main Workspace Viewport: 1200px max width, 32px desktop padding, 16px mobile padding */}
