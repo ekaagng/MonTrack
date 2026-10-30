@@ -1,0 +1,6 @@
+{
+  "name": "Money Tracker",
+  "description": "Personal finance tracking web application for managing spending, monthly budgets, and realistic financial goals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
