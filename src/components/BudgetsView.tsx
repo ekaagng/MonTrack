@@ -58,34 +58,34 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   }, [budgets, selectedMonth, categoryMap, transactions]);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-200">
-      {/* Page Header */}
-      <div className="flex flex-row items-center justify-between gap-4">
-        <h1 className="text-[22px] sm:text-[26px] font-heading font-bold tracking-tight leading-[1.25] text-[#171B18] dark:text-[#F0F0F0] text-left">
+    <div className="space-y-5 animate-in fade-in duration-200">
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-[22px] sm:text-[25px] font-heading font-bold tracking-tight leading-tight text-[#171B18] dark:text-[#F0F0F0]">
           {t('navBudgets')}
         </h1>
         <motion.button
-          whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           onClick={onAddBudget}
-          className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-[12px] bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] text-[14px] font-sans font-semibold leading-none shadow-sm transition-all shrink-0 cursor-pointer"
+          className="inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-[11px] bg-[#167C35] px-3.5 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#11632a] dark:bg-[#00B000] dark:text-[#131313] dark:hover:bg-[#009900] sm:px-4 sm:text-[14px]"
         >
-          <AppIcon name="plus" size={16} />
+          <AppIcon name="plus" size={15} />
           <span>{t('addBudget')}</span>
         </motion.button>
       </div>
 
-      {/* Toolbar / Month Filter */}
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <label htmlFor="budget-month-filter" className="text-[12px] sm:text-[13px] font-sans font-medium text-[#5C665F] dark:text-[#B7C1B8]">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-2">
+          <label
+            htmlFor="budget-month-filter"
+            className="shrink-0 text-[11px] font-medium text-[#5C665F] dark:text-[#B7C1B8] sm:text-[13px]"
+          >
             {t('budgetMonth')}:
           </label>
           <select
             id="budget-month-filter"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
-            className="h-11 px-3.5 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] outline-none cursor-pointer"
+            className="h-9 min-w-0 max-w-[190px] rounded-[10px] border border-[#E2E6DF] bg-white px-2.5 text-[12px] font-medium text-[#171B18] outline-none focus:border-[#167C35] dark:border-[#28312B] dark:bg-[#1B211D] dark:text-[#F0F0F0] dark:focus:border-[#00B000] sm:h-10 sm:px-3 sm:text-[13px]"
           >
             {monthOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -94,29 +94,28 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             ))}
           </select>
         </div>
-
-        <span className="text-[12px] font-sans font-medium text-[#5C665F] dark:text-[#B7C1B8]">
+        <span className="shrink-0 text-[10px] font-medium text-[#5C665F] dark:text-[#B7C1B8] sm:text-[12px]">
           {monthBudgets.length} {t('budgets').toLowerCase()}
         </span>
       </div>
 
-      {/* Budget Cards Grid (12-col Desktop Grid / 16px Mobile Padding) */}
+      {/* Two-column cards on mobile; same two-card rhythm on desktop */}
       {monthBudgets.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-12 lg:gap-5">
           {monthBudgets.map((b) => {
             const fillClass =
               b.usage.status === 'over_budget'
                 ? 'bg-[#B94E48] dark:bg-[#E06D67]'
                 : b.usage.status === 'near_limit'
-                ? 'bg-[#A4D65A] dark:bg-[#A4D65A]'
+                ? 'bg-[#A4D65A]'
                 : 'bg-[#167C35] dark:bg-[#00B000]';
 
-            const badgeBg =
+            const badgeClass =
               b.usage.status === 'over_budget'
-                ? 'bg-[#FDF1F0] dark:bg-[#2F1816] text-[#B94E48] dark:text-[#E06D67] border border-[#F7CFCD]/60 dark:border-[#5c2420]/40'
+                ? 'border-[#F7CFCD]/60 bg-[#FDF1F0] text-[#B94E48] dark:border-[#5c2420]/40 dark:bg-[#2F1816] dark:text-[#E06D67]'
                 : b.usage.status === 'near_limit'
-                ? 'bg-[#FEF8E7] dark:bg-[#382B10] text-[#946200] dark:text-[#F3C868] border border-[#FAE8B4]/60 dark:border-[#594416]/40'
-                : 'bg-[#EBF6EE] dark:bg-[#14291B] text-[#167C35] dark:text-[#00B000] border border-[#C8E7D1]/60 dark:border-[#00B000]/30';
+                ? 'border-[#FAE8B4]/60 bg-[#FEF8E7] text-[#946200] dark:border-[#594416]/40 dark:bg-[#382B10] dark:text-[#F3C868]'
+                : 'border-[#C8E7D1]/60 bg-[#EBF6EE] text-[#167C35] dark:border-[#00B000]/30 dark:bg-[#14291B] dark:text-[#00B000]';
 
             const statusText =
               b.usage.status === 'over_budget'
@@ -125,77 +124,96 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 ? t('almostThere')
                 : t('onTrack');
 
+            const isOverBudget = b.usage.remaining < 0;
+            const remainingLabel = isOverBudget ? t('budgetExceeded') : t('budgetRemaining');
+            const remainingAmount = formatMoney(Math.abs(b.usage.remaining), lang);
+            const categoryName =
+              lang === 'en' && b.category?.nameEn ? b.category.nameEn : b.category?.name;
+
             return (
               <article
                 key={b.id}
-                className="md:col-span-6 p-4 sm:p-5 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[16px] flex flex-col justify-between gap-4 shadow-xs"
+                className="flex min-w-0 flex-col gap-2.5 rounded-[14px] border border-[#E2E6DF] bg-white p-3 shadow-xs dark:border-[#28312B] dark:bg-[#1B211D] sm:gap-3 sm:p-4 md:col-span-6"
               >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span
-                      className="flex items-center justify-center w-10 h-10 rounded-full text-xs font-bold shrink-0"
-                      style={{
-                        backgroundColor: `${b.category?.color || '#167C35'}18`,
-                        color: b.category?.color || '#167C35',
-                      }}
-                    >
-                      <AppIcon name={b.category?.icon || 'tag'} size={18} />
-                    </span>
-                    <div className="min-w-0 text-left">
-                      <strong className="block text-[15px] sm:text-[16px] font-heading font-semibold text-[#171B18] dark:text-[#F0F0F0] truncate text-left">
-                        {lang === 'en' && b.category?.nameEn ? b.category.nameEn : b.category?.name}
-                      </strong>
-                      <span className={`inline-block mt-0.5 px-2 py-0.5 rounded-full text-[11px] font-sans font-semibold ${badgeBg}`}>
-                        {statusText}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 shrink-0">
+                <div className="flex items-center justify-between gap-1.5">
+                  <span
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] sm:h-9 sm:w-9 sm:rounded-[11px]"
+                    style={{
+                      backgroundColor: `${b.category?.color || '#167C35'}18`,
+                      color: b.category?.color || '#167C35',
+                    }}
+                    aria-hidden="true"
+                  >
+                    <AppIcon name={b.category?.icon || 'tag'} size={16} />
+                  </span>
+
+                  <div className="flex shrink-0 items-center gap-0.5">
                     <motion.button
+                      type="button"
                       whileTap={{ scale: 0.9 }}
                       onClick={() => onEditBudget(b)}
-                      aria-label={`${t('edit')}: ${b.category?.name}`}
-                      className="flex items-center justify-center w-8 h-8 rounded-lg text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF6EE] dark:hover:bg-[#14291B] hover:text-[#167C35] dark:hover:text-[#00B000] transition-colors cursor-pointer"
+                      aria-label={`${t('edit')}: ${categoryName || t('budgets')}`}
+                      className="flex h-7 w-7 items-center justify-center rounded-lg text-[#5C665F] transition-colors hover:bg-[#EBF6EE] hover:text-[#167C35] dark:text-[#B7C1B8] dark:hover:bg-[#14291B] dark:hover:text-[#00B000] sm:h-8 sm:w-8"
                     >
-                      <AppIcon name="edit" size={15} />
+                      <AppIcon name="edit" size={14} />
                     </motion.button>
                     <motion.button
+                      type="button"
                       whileTap={{ scale: 0.9 }}
                       onClick={() => onDeleteBudget(b)}
-                      aria-label={`${t('delete')}: ${b.category?.name}`}
-                      className="flex items-center justify-center w-8 h-8 rounded-lg text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#FDF1F0] dark:hover:bg-[#2F1816] hover:text-[#B94E48] dark:hover:text-[#E06D67] transition-colors cursor-pointer"
+                      aria-label={`${t('delete')}: ${categoryName || t('budgets')}`}
+                      className="flex h-7 w-7 items-center justify-center rounded-lg text-[#5C665F] transition-colors hover:bg-[#FDF1F0] hover:text-[#B94E48] dark:text-[#B7C1B8] dark:hover:bg-[#2F1816] dark:hover:text-[#E06D67] sm:h-8 sm:w-8"
                     >
-                      <AppIcon name="trash" size={15} />
+                      <AppIcon name="trash" size={14} />
                     </motion.button>
                   </div>
                 </div>
 
-                <div>
-                  <div className="text-[20px] sm:text-[22px] font-heading font-bold tabular-nums text-[#171B18] dark:text-[#F0F0F0] text-left">
-                    {formatMoney(b.usage.spent, lang)}
-                    <span className="text-[13px] font-sans font-normal text-[#5C665F] dark:text-[#B7C1B8]">
-                      {' '}
-                      / {formatMoney(b.amount, lang)}
-                    </span>
-                  </div>
+                <div className="min-w-0">
+                  <h2 className="min-h-[2.25rem] break-words text-[12px] font-heading font-bold leading-[1.25] text-[#171B18] dark:text-[#F0F0F0] sm:text-[14px]">
+                    {categoryName || t('budgets')}
+                  </h2>
+                  <span
+                    className={`mt-1 inline-flex max-w-full whitespace-normal rounded-full border px-1.5 py-0.5 text-[9px] font-semibold leading-tight sm:px-2 sm:text-[10px] ${badgeClass}`}
+                  >
+                    {statusText}
+                  </span>
+                </div>
 
-                  <div className="w-full h-2 bg-[#EBF0E8] dark:bg-[#222A25] rounded-full overflow-hidden mt-3">
+                <div className="min-w-0">
+                  <div className="text-[9px] font-medium uppercase tracking-wide text-[#5C665F] dark:text-[#B7C1B8] sm:text-[10px]">
+                    {t('budgetUsed')}
+                  </div>
+                  <div className="mt-0.5 break-words text-[12px] font-heading font-bold leading-tight tabular-nums text-[#171B18] dark:text-[#F0F0F0] sm:text-[15px] [overflow-wrap:anywhere]">
+                    {formatMoney(b.usage.spent, lang)}
+                  </div>
+                  <div className="mt-0.5 break-words text-[10px] leading-tight tabular-nums text-[#5C665F] dark:text-[#B7C1B8] sm:text-[11px] [overflow-wrap:anywhere]">
+                    / {formatMoney(b.amount, lang)}
+                  </div>
+                </div>
+
+                <div className="mt-auto min-w-0">
+                  <div
+                    className="h-1.5 w-full overflow-hidden rounded-full bg-[#EBF0E8] dark:bg-[#222A25]"
+                    role="progressbar"
+                    aria-label={`${categoryName || t('budgets')} — ${t('budgetUsed')}`}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.max(0, Math.min(100, b.usage.percentage))}
+                  >
                     <motion.div
                       className={`h-full rounded-full ${fillClass}`}
                       initial={{ width: 0 }}
-                      animate={{ width: `${Math.min(100, b.usage.percentage)}%` }}
-                      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                      animate={{ width: `${Math.max(0, Math.min(100, b.usage.percentage))}%` }}
+                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                     />
                   </div>
-
-                  <div className="flex justify-between items-center text-[12px] font-sans text-[#5C665F] dark:text-[#B7C1B8] mt-2">
-                    <span className="font-semibold text-left">
+                  <div className="mt-1.5 flex min-w-0 flex-col gap-0.5 text-[10px] leading-[1.35] text-[#5C665F] dark:text-[#B7C1B8] sm:text-[11px]">
+                    <span className="font-semibold text-[#171B18] dark:text-[#F0F0F0]">
                       {b.usage.percentage}% {t('budgetUsed')}
                     </span>
-                    <span className="tabular-nums text-right">
-                      {b.usage.remaining < 0
-                        ? `${formatMoney(Math.abs(b.usage.remaining), lang)} ${t('budgetExceeded')}`
-                        : `${formatMoney(b.usage.remaining, lang)} ${t('budgetRemaining')}`}
+                    <span className="break-words [overflow-wrap:anywhere]">
+                      {remainingAmount} {remainingLabel}
                     </span>
                   </div>
                 </div>
@@ -204,27 +222,27 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           })}
         </div>
       ) : (
-        <div className="p-12 text-center bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[16px] text-[#5C665F] dark:text-[#B7C1B8] shadow-xs">
-          <p className="text-[14px] font-sans">{t('noBudgets')}</p>
+        <div className="rounded-[14px] border border-[#E2E6DF] bg-white p-8 text-center text-[#5C665F] shadow-xs dark:border-[#28312B] dark:bg-[#1B211D] dark:text-[#B7C1B8] sm:p-10">
+          <p className="text-[13px]">{t('noBudgets')}</p>
           <motion.button
-            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
             onClick={onAddBudget}
-            className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-[12px] bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] text-[14px] font-sans font-semibold cursor-pointer shadow-sm"
+            className="mt-4 inline-flex h-10 items-center gap-2 rounded-[11px] bg-[#167C35] px-4 text-[13px] font-semibold text-white shadow-sm hover:bg-[#11632a] dark:bg-[#00B000] dark:text-[#131313] dark:hover:bg-[#009900]"
           >
-            <AppIcon name="plus" size={16} />
+            <AppIcon name="plus" size={15} />
             <span>{t('addBudget')}</span>
           </motion.button>
         </div>
       )}
 
-      {/* Educational Hint Box */}
-      <section className="p-4 sm:p-5 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[16px] flex items-center gap-3 text-[12px] font-sans text-[#5C665F] dark:text-[#B7C1B8] shadow-xs">
-        <div className="text-[#167C35] dark:text-[#00B000] shrink-0">
-          <AppIcon name="info" size={18} />
-        </div>
-        <div className="text-left">
-          <strong className="block text-[13px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] mb-0.5">{t('budgetOverview')}</strong>
+      <section className="flex items-start gap-2.5 rounded-[13px] border border-[#E2E6DF] bg-white p-3 text-[11px] leading-relaxed text-[#5C665F] shadow-xs dark:border-[#28312B] dark:bg-[#1B211D] dark:text-[#B7C1B8] sm:text-[12px]">
+        <span className="mt-0.5 shrink-0 text-[#167C35] dark:text-[#00B000]">
+          <AppIcon name="info" size={16} />
+        </span>
+        <div className="min-w-0">
+          <strong className="mb-0.5 block text-[12px] font-semibold text-[#171B18] dark:text-[#F0F0F0]">
+            {t('budgetOverview')}
+          </strong>
           <span>{t('budgetHint')}</span>
         </div>
       </section>
