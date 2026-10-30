@@ -74,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           isOpenMobile ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="min-h-0">
+        <div className="min-h-0 overflow-y-auto pr-1">
           <div className="mb-6 flex items-center gap-3 px-2 py-1">
             <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-[#167C35]/30 bg-gradient-to-br from-[#167C35] via-[#105E28] to-[#171B18] text-[#A4D65A] shadow-md">
               <AppIcon name="logo" size={20} />
