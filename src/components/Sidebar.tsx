@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import type { PageId, Language, UserProfile } from '../types/finance.ts';
-import { AppIcon } from './icons.tsx';
+import type { PageId, UserProfile, Language } from '../types/finance.ts';
+import { AppIcon, type IconName } from './icons.tsx';
 import { getTranslation } from '../i18n/translations.ts';
 
 interface SidebarProps {
@@ -13,6 +13,22 @@ interface SidebarProps {
   onCloseMobile: () => void;
 }
 
+interface NavItem {
+  id: PageId;
+  labelKey: string;
+  icon: IconName;
+}
+
+const navItems: NavItem[] = [
+  { id: 'dashboard', labelKey: 'navDashboard', icon: 'grid' },
+  { id: 'transactions', labelKey: 'navTransactions', icon: 'list' },
+  { id: 'budgets', labelKey: 'navBudgets', icon: 'wallet' },
+  { id: 'goals', labelKey: 'navGoals', icon: 'target' },
+  { id: 'reports', labelKey: 'navReports', icon: 'chart' },
+  { id: 'categories', labelKey: 'navCategories', icon: 'tag' },
+  { id: 'settings', labelKey: 'navSettings', icon: 'settings' },
+];
+
 export const Sidebar: React.FC<SidebarProps> = ({
   currentPage,
   profile,
@@ -22,18 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onCloseMobile,
 }) => {
   const t = (k: string) => getTranslation(k, lang);
-
-  const navItems: Array<{ id: PageId; labelKey: string; icon: string }> = [
-    { id: 'dashboard', labelKey: 'navDashboard', icon: 'grid' },
-    { id: 'transactions', labelKey: 'navTransactions', icon: 'list' },
-    { id: 'budgets', labelKey: 'navBudgets', icon: 'wallet' },
-    { id: 'goals', labelKey: 'navGoals', icon: 'target' },
-    { id: 'reports', labelKey: 'navReports', icon: 'chart' },
-    { id: 'categories', labelKey: 'navCategories', icon: 'tag' },
-    { id: 'settings', labelKey: 'navSettings', icon: 'settings' },
-  ];
-
-  const initial = (profile.name || 'U').trim().charAt(0).toUpperCase();
+  const initial = profile.name ? profile.name.charAt(0).toUpperCase() : 'U';
 
   return (
     <>
@@ -45,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             animate={{ opacity: 1, backdropFilter: 'blur(6px)' }}
             exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[65] bg-[rgba(24,35,27,0.4)] backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-[65] bg-[rgba(23,27,24,0.45)] backdrop-blur-sm md:hidden"
             onClick={onCloseMobile}
             aria-hidden="true"
           />
@@ -55,31 +60,31 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <aside
         id="sidebar"
         aria-label="Navigasi utama"
-        className={`fixed top-0 bottom-0 left-0 z-[70] w-[min(84vw,280px)] md:w-[244px] md:sticky md:top-0 h-screen bg-[#f9faf5] border-r border-[#e7ebe4] p-5 flex flex-col justify-between transition-transform duration-250 ease-out md:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-[70] w-[min(84vw,280px)] md:w-[244px] md:sticky md:top-0 h-screen bg-[#F4F6F2] dark:bg-[#161B18] border-r border-[#E2E6DF] dark:border-[#28312B] p-5 flex flex-col justify-between transition-transform duration-250 ease-out md:translate-x-0 ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div>
-          {/* Brand */}
-          <div className="flex items-center gap-3 px-2 py-1 mb-7">
-            <div className="flex items-center justify-center w-9 h-9 rounded-[13px] bg-[#27694c] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.24)]">
+          {/* Brand with Refined Green Gradient */}
+          <div className="flex items-center gap-3 px-2 py-1 mb-6">
+            <div className="flex items-center justify-center w-10 h-10 rounded-[12px] bg-gradient-to-br from-[#167C35] via-[#105E28] to-[#171B18] text-[#A4D65A] shadow-md border border-[#167C35]/30">
               <AppIcon name="logo" size={20} />
             </div>
-            <div>
-              <div className="text-base font-extrabold tracking-tight text-[#1a1c19] dark:text-[#eef1ec]">
-                money tracker
+            <div className="text-left">
+              <div className="text-[16px] font-heading font-bold tracking-tight text-[#171B18] dark:text-[#F0F0F0]">
+                MONTRACK
               </div>
-              <div className="text-[10px] tracking-wider uppercase text-[#606c64] dark:text-[#88938a]">
-                personal finance
+              <div className="text-[11px] font-sans font-medium tracking-wider uppercase text-[#5C665F] dark:text-[#B7C1B8]">
+                Personal Finance
               </div>
             </div>
           </div>
 
-          <div className="text-[10px] tracking-wider font-extrabold uppercase text-[#9ba29b] dark:text-[#727d75] px-3 mb-2.5">
+          <div className="text-[11px] tracking-wider font-sans font-bold uppercase text-[#5C665F] dark:text-[#B7C1B8] px-3 mb-2 text-left">
             {t('workspace')}
           </div>
 
-          {/* Navigation Links with Tactile Feedback */}
+          {/* Navigation Links with Inter 14px and >=44px touch targets */}
           <nav className="grid gap-1">
             {navItems.map((item) => {
               const active = currentPage === item.id;
@@ -91,13 +96,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     onNavigate(item.id);
                     onCloseMobile();
                   }}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[13px] text-[13px] font-bold text-left transition-all ${
+                  className={`w-full min-h-[44px] flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] text-[14px] font-sans font-semibold text-left transition-all cursor-pointer ${
                     active
-                      ? 'bg-[#e5efe7] dark:bg-[#183626] text-[#174d36] dark:text-[#92d5b1] shadow-xs'
-                      : 'text-[#687169] dark:text-[#a0aba2] hover:bg-[#ecefe8] dark:hover:bg-[#202622] hover:text-[#202923] dark:hover:text-[#eef1ec]'
+                      ? 'bg-[#EBF6EE] dark:bg-[#1B2B20] text-[#167C35] dark:text-[#00B000] border border-[#C8E7D1]/60 dark:border-[#00B000]/30 shadow-xs'
+                      : 'text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25] hover:text-[#171B18] dark:hover:text-[#F0F0F0]'
                   }`}
                 >
-                  <AppIcon name={item.icon} size={17} />
+                  <AppIcon name={item.icon} size={18} />
                   <span>{t(item.labelKey)}</span>
                 </motion.button>
               );
@@ -106,26 +111,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Bottom Profile & Status */}
-        <div className="pt-4 border-t border-[#e8ece5] dark:border-[#2a322c]">
-          <div className="p-3 mb-3 bg-[#f9faf6] dark:bg-[#1a1f1b] border border-[#e3e8df] dark:border-[#2a322c] rounded-[15px]">
-            <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#174d36] dark:text-[#52ba88]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6ca875]" />
+        <div className="pt-4 border-t border-[#E2E6DF] dark:border-[#28312B]">
+          <div className="p-3.5 mb-3 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[14px]">
+            <div className="flex items-center gap-2 text-[12px] font-sans font-bold text-[#167C35] dark:text-[#00B000] text-left">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#167C35] dark:bg-[#00B000]" />
               <span>{t('demoMode')}</span>
             </div>
-            <p className="mt-1.5 text-[11px] text-[#788079] dark:text-[#88938a] leading-relaxed">
+            <p className="mt-1 text-[11px] font-sans text-[#5C665F] dark:text-[#B7C1B8] leading-[1.4] text-left">
               {t('demoNote')}
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 px-1 pt-1">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#dce8d8] dark:bg-[#1e3b2b] text-[#174d36] dark:text-[#92d5b1] font-extrabold text-xs shrink-0">
+          <div className="flex items-center gap-3 px-1 pt-1">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#EBF6EE] dark:bg-[#1B2B20] text-[#167C35] dark:text-[#A4D65A] font-heading font-bold text-xs shrink-0 border border-[#C8E7D1]/50 dark:border-[#00B000]/20">
               {initial}
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-xs font-bold text-[#202923] dark:text-[#eef1ec] truncate">
+            <div className="min-w-0 flex-1 text-left">
+              <div className="text-[13px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] truncate">
                 {profile.name || 'Pengguna'}
               </div>
-              <div className="text-[10px] text-[#788079] dark:text-[#88938a] truncate">
+              <div className="text-[11px] font-sans text-[#5C665F] dark:text-[#B7C1B8] truncate">
                 {t('personalSpace')}
               </div>
             </div>
@@ -138,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onCloseMobile();
               }}
               aria-label={t('navSettings')}
-              className="flex items-center justify-center w-7 h-7 rounded-lg text-[#788079] dark:text-[#88938a] hover:bg-[#e9ede5] dark:hover:bg-[#202622] hover:text-[#202923] dark:hover:text-[#eef1ec] transition-colors"
+              className="flex items-center justify-center w-7 h-7 rounded-lg text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25] hover:text-[#171B18] dark:hover:text-[#F0F0F0] transition-colors cursor-pointer"
             >
               <AppIcon name="settings" size={16} />
             </motion.button>

@@ -37,22 +37,22 @@ export const Topbar: React.FC<TopbarProps> = ({
   };
 
   return (
-    <header className="flex items-center justify-between gap-4 mb-6 md:mb-8">
+    <header className="flex items-center justify-between gap-4 mb-6 sm:mb-8">
       <div className="flex items-center gap-3 min-w-0">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.92 }}
           onClick={onOpenMobileMenu}
           aria-label="Buka menu"
-          className="flex md:hidden items-center justify-center w-9 h-9 bg-white dark:bg-[#1b201d] border border-[#e8ece5] dark:border-[#2a322c] rounded-xl text-[#5e685f] dark:text-[#a0aba2] hover:bg-[#f8faf6] dark:hover:bg-[#232924] shrink-0"
+          className="flex md:hidden items-center justify-center w-10 h-10 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25] shrink-0 cursor-pointer"
         >
-          <AppIcon name="menu" size={17} />
+          <AppIcon name="menu" size={18} />
         </motion.button>
 
-        <div className="flex items-center gap-2 text-[12px] font-sans text-[#788079] dark:text-[#8d978f]">
+        <div className="flex items-center gap-2 text-[12px] font-sans text-[#5C665F] dark:text-[#B7C1B8]">
           <span className="hidden sm:inline font-medium">{t('breadcrumbHome')}</span>
           <span className="hidden sm:inline" aria-hidden="true">/</span>
-          <strong className="font-heading font-bold text-[#202923] dark:text-[#eff2ed] text-[14px] sm:text-[13px] truncate">
+          <strong className="font-heading font-bold text-[#171B18] dark:text-[#F0F0F0] text-[15px] sm:text-[16px] truncate">
             {pageTitles[currentPage]}
           </strong>
         </div>
@@ -67,14 +67,14 @@ export const Topbar: React.FC<TopbarProps> = ({
             onClick={() => setLangMenuOpen(!langMenuOpen)}
             aria-haspopup="menu"
             aria-expanded={langMenuOpen}
-            className="flex items-center gap-1.5 h-9 px-3 bg-white dark:bg-[#1b201d] border border-[#e8ece5] dark:border-[#2a322c] rounded-xl text-[13px] font-sans font-semibold text-[#586159] dark:text-[#c4cec6] hover:bg-[#f8faf6] dark:hover:bg-[#232924] transition-colors shadow-xs"
+            className="flex items-center gap-1.5 h-10 px-3 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[13px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25] transition-colors cursor-pointer"
           >
             <span>{lang.toUpperCase()}</span>
             <motion.span
               animate={{ rotate: langMenuOpen ? 180 : 0 }}
               transition={{ duration: 0.2 }}
               aria-hidden="true"
-              className="text-[10px] text-[#788079] dark:text-[#8d978f]"
+              className="text-[10px] text-[#5C665F] dark:text-[#B7C1B8]"
             >
               ⌄
             </motion.span>
@@ -97,9 +97,9 @@ export const Topbar: React.FC<TopbarProps> = ({
                   animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, scale: 0.95, y: -6, filter: 'blur(4px)' }}
                   transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute right-0 top-full mt-2 w-48 p-2 bg-white/95 dark:bg-[#1b201d]/95 backdrop-blur-xl border border-[#e8ece5] dark:border-[#2a322c] rounded-2xl shadow-[0_16px_36px_rgba(0,0,0,0.18)] z-40"
+                  className="absolute right-0 top-full mt-2 w-48 p-2 bg-white/95 dark:bg-[#1B211D]/95 backdrop-blur-xl border border-[#E2E6DF] dark:border-[#28312B] rounded-[14px] shadow-[0_16px_36px_rgba(23,27,24,0.14)] z-40"
                 >
-                  <div className="px-2.5 py-1.5 text-[10px] font-bold text-[#788079] dark:text-[#8d978f] uppercase tracking-wider">
+                  <div className="px-2.5 py-1.5 text-[10px] font-bold text-[#5C665F] dark:text-[#B7C1B8] uppercase tracking-wider">
                     {t('chooseLanguage')}
                   </div>
                   <motion.button
@@ -110,14 +110,14 @@ export const Topbar: React.FC<TopbarProps> = ({
                       onLanguageChange('id');
                       setLangMenuOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-bold transition-colors ${
+                    className={`w-full flex items-center justify-between px-2.5 py-2 rounded-[10px] text-[13px] font-sans font-semibold transition-colors cursor-pointer ${
                       lang === 'id'
-                        ? 'bg-[#e9f3ec] dark:bg-[#183526] text-[#174d36] dark:text-[#92d5b1]'
-                        : 'text-[#202923] dark:text-[#eff2ed] hover:bg-[#f5f6f1] dark:hover:bg-[#232924]'
+                        ? 'bg-[#EBF6EE] dark:bg-[#14291B] text-[#167C35] dark:text-[#00B000]'
+                        : 'text-[#171B18] dark:text-[#F0F0F0] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25]'
                     }`}
                   >
                     <span>Bahasa Indonesia</span>
-                    {lang === 'id' && <span className="text-[#27694c] dark:text-[#52ba88]">✓</span>}
+                    {lang === 'id' && <span className="text-[#167C35] dark:text-[#00B000]">✓</span>}
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.97 }}
@@ -127,14 +127,14 @@ export const Topbar: React.FC<TopbarProps> = ({
                       onLanguageChange('en');
                       setLangMenuOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs font-bold transition-colors ${
+                    className={`w-full flex items-center justify-between px-2.5 py-2 rounded-[10px] text-[13px] font-sans font-semibold transition-colors cursor-pointer ${
                       lang === 'en'
-                        ? 'bg-[#e9f3ec] dark:bg-[#183526] text-[#174d36] dark:text-[#92d5b1]'
-                        : 'text-[#202923] dark:text-[#eff2ed] hover:bg-[#f5f6f1] dark:hover:bg-[#232924]'
+                        ? 'bg-[#EBF6EE] dark:bg-[#14291B] text-[#167C35] dark:text-[#00B000]'
+                        : 'text-[#171B18] dark:text-[#F0F0F0] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25]'
                     }`}
                   >
                     <span>English</span>
-                    {lang === 'en' && <span className="text-[#27694c] dark:text-[#52ba88]">✓</span>}
+                    {lang === 'en' && <span className="text-[#167C35] dark:text-[#00B000]">✓</span>}
                   </motion.button>
                 </motion.div>
               </>
@@ -142,7 +142,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           </AnimatePresence>
         </div>
 
-        {/* Dark / Light Mode Direct Single-Click Toggle Button with Tactile Rotation */}
+        {/* Dark / Light Mode Direct Single-Click Toggle Button */}
         <motion.button
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.9, rotate: 20 }}
@@ -151,12 +151,12 @@ export const Topbar: React.FC<TopbarProps> = ({
           onClick={onToggleTheme}
           aria-label={theme === 'dark' ? t('themeToggleToLight') : t('themeToggleToDark')}
           title={theme === 'dark' ? t('themeToggleToLight') : t('themeToggleToDark')}
-          className="flex items-center justify-center w-9 h-9 bg-white dark:bg-[#1b201d] border border-[#e8ece5] dark:border-[#2a322c] rounded-xl text-[#586159] dark:text-[#c4cec6] hover:bg-[#f8faf6] dark:hover:bg-[#232924] hover:text-[#27694c] dark:hover:text-[#52ba88] transition-colors shrink-0 shadow-xs"
+          className="flex items-center justify-center w-10 h-10 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF0E8] dark:hover:bg-[#222A25] hover:text-[#167C35] dark:hover:text-[#00B000] transition-colors shrink-0 cursor-pointer"
         >
-          <AppIcon name={theme === 'dark' ? 'sun' : 'moon'} size={17} />
+          <AppIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
         </motion.button>
 
-        {/* Quick Add Button (Desktop) with Tactile Spring */}
+        {/* Quick Add Button (Desktop) with Refined Green */}
         <motion.button
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.9, rotate: 45 }}
@@ -164,9 +164,9 @@ export const Topbar: React.FC<TopbarProps> = ({
           onClick={onQuickAdd}
           aria-label={t('addTransaction')}
           title={t('addTransaction')}
-          className="hidden sm:flex items-center justify-center w-9 h-9 bg-white dark:bg-[#1b201d] border border-[#e8ece5] dark:border-[#2a322c] rounded-xl text-[#5e685f] dark:text-[#c4cec6] hover:bg-[#f8faf6] dark:hover:bg-[#232924] hover:text-[#27694c] dark:hover:text-[#52ba88] transition-colors shrink-0 shadow-xs"
+          className="hidden sm:flex items-center justify-center w-10 h-10 bg-white dark:bg-[#1B211D] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[#5C665F] dark:text-[#B7C1B8] hover:bg-[#EBF6EE] dark:hover:bg-[#14291B] hover:text-[#167C35] dark:hover:text-[#00B000] hover:border-[#167C35]/40 transition-colors shrink-0 cursor-pointer"
         >
-          <AppIcon name="plus" size={17} />
+          <AppIcon name="plus" size={18} />
         </motion.button>
       </div>
     </header>

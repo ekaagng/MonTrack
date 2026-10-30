@@ -22,23 +22,23 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 }) => {
   return (
     <div className="space-y-4">
-      <p className="text-xs text-[#526055] dark:text-[#b0bca2] leading-relaxed">
+      <p className="text-[13px] sm:text-[14px] font-sans text-[#5C665F] dark:text-[#B7C1B8] leading-relaxed text-left">
         {description}
       </p>
 
       {itemLabel && (
-        <div className="p-3 bg-[#f8faf6] dark:bg-[#1a201c] border border-[#e8ece5] dark:border-[#2a342c] rounded-xl text-xs font-bold text-[#141a16] dark:text-[#f0f4f0]">
+        <div className="p-3.5 bg-[#EBF0E8] dark:bg-[#222A25] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[13px] sm:text-[14px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] text-left">
           {itemLabel}
         </div>
       )}
 
-      <div className="flex justify-end gap-2.5 pt-4 border-t border-[#edf0eb] dark:border-[#2a342c]">
+      <div className="flex justify-end gap-3 pt-4 border-t border-[#E2E6DF] dark:border-[#28312B]">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onCancel}
-          className="px-4 py-2.5 rounded-xl border border-[#dfe5dc] dark:border-[#2a342c] bg-white dark:bg-[#181c19] hover:bg-[#f8faf6] dark:hover:bg-[#232924] text-xs font-bold text-[#435047] dark:text-[#c4cec6] transition-all"
+          className="h-11 px-5 rounded-[12px] bg-[#EBF0E8] dark:bg-[#222A25] hover:bg-[#E2E6DF] dark:hover:bg-[#28312B] text-[14px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] transition-all cursor-pointer"
         >
           Batal
         </motion.button>
@@ -47,14 +47,14 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onConfirm}
-          className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all ${
+          className={`inline-flex items-center gap-2 h-11 px-5 rounded-[12px] text-[14px] font-sans font-semibold transition-all cursor-pointer ${
             isDestructive
-              ? 'bg-[#b84b40] hover:bg-[#963c32] text-white shadow-[0_5px_14px_rgba(184,75,64,0.22)]'
-              : 'bg-[#27694c] hover:bg-[#174d36] text-white shadow-[0_5px_14px_rgba(39,105,76,0.22)]'
+              ? 'bg-[#B94E48] hover:bg-[#9E3E39] text-white shadow-sm'
+              : 'bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] shadow-sm'
           }`}
         >
-          {isDestructive && <AppIcon name="trash" size={14} />}
-          {confirmLabel}
+          {isDestructive && <AppIcon name="trash" size={16} />}
+          <span>{confirmLabel}</span>
         </motion.button>
       </div>
     </div>

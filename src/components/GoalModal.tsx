@@ -57,7 +57,7 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
       <div>
-        <label htmlFor="goal-name" className="block text-xs font-bold text-[#455047] mb-1.5">
+        <label htmlFor="goal-name" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
           {t('goalName')}
         </label>
         <input
@@ -70,16 +70,16 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
             setName(e.target.value);
             setErrors((prev) => ({ ...prev, name: '' }));
           }}
-          className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+          className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all placeholder:text-[#5C665F]/50 dark:placeholder:text-[#B7C1B8]/40"
           required
         />
-        {errors.name && <p className="mt-1 text-[11px] text-[#b84b40]">{errors.name}</p>}
+        {errors.name && <p className="mt-1 text-[11px] font-sans font-medium text-[#B94E48] dark:text-[#E06D67] text-left">{errors.name}</p>}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
         <div>
-          <label htmlFor="goal-target" className="block text-xs font-bold text-[#455047] mb-1.5">
-            {t('targetAmount')} (IDR)
+          <label htmlFor="goal-target" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
+            {t('targetAmount')} ({lang === 'en' ? 'IDR' : 'Rp'})
           </label>
           <input
             id="goal-target"
@@ -92,15 +92,15 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
               setTargetAmount(e.target.value);
               setErrors((prev) => ({ ...prev, target: '' }));
             }}
-            className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium tabular-nums text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
             required
           />
-          {errors.target && <p className="mt-1 text-[11px] text-[#b84b40]">{errors.target}</p>}
+          {errors.target && <p className="mt-1 text-[11px] font-sans font-medium text-[#B94E48] dark:text-[#E06D67] text-left">{errors.target}</p>}
         </div>
 
         <div>
-          <label htmlFor="goal-initial" className="block text-xs font-bold text-[#455047] mb-1.5">
-            {t('initialSaved')} (IDR)
+          <label htmlFor="goal-initial" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
+            {t('initialSaved')} ({lang === 'en' ? 'IDR' : 'Rp'})
           </label>
           <input
             id="goal-initial"
@@ -110,13 +110,13 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
             placeholder="0"
             value={initialSaved}
             onChange={(e) => setInitialSaved(e.target.value)}
-            className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium tabular-nums text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="goal-monthly" className="block text-xs font-bold text-[#455047] mb-1.5">
-            {t('monthlyContribution')} (IDR)
+          <label htmlFor="goal-monthly" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
+            {t('monthlyContribution')} ({lang === 'en' ? 'IDR' : 'Rp'})
           </label>
           <input
             id="goal-monthly"
@@ -126,12 +126,12 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
             placeholder="0"
             value={monthlyContribution}
             onChange={(e) => setMonthlyContribution(e.target.value)}
-            className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium tabular-nums text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="goal-date" className="block text-xs font-bold text-[#455047] mb-1.5">
+          <label htmlFor="goal-date" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('targetDate')} ({t('optional')})
           </label>
           <input
@@ -139,19 +139,19 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
             type="date"
             value={targetDate}
             onChange={(e) => setTargetDate(e.target.value)}
-            className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label htmlFor="goal-priority" className="block text-xs font-bold text-[#455047] mb-1.5">
+          <label htmlFor="goal-priority" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('priority')}
           </label>
           <select
             id="goal-priority"
             value={priority}
             onChange={(e) => setPriority(e.target.value as GoalPriority)}
-            className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
           >
             <option value="high">{t('priorityHigh')}</option>
             <option value="medium">{t('priorityMedium')}</option>
@@ -160,7 +160,7 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
         </div>
 
         <div className="sm:col-span-2">
-          <label htmlFor="goal-note" className="block text-xs font-bold text-[#455047] mb-1.5">
+          <label htmlFor="goal-note" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('goalNote')} ({t('optional')})
           </label>
           <textarea
@@ -170,18 +170,18 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
             placeholder={t('goalNotePlaceholder')}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="w-full p-3 bg-white border border-[#dfe5dc] rounded-xl text-sm text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all resize-none"
+            className="w-full p-3 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all resize-none placeholder:text-[#5C665F]/50 dark:placeholder:text-[#B7C1B8]/40"
           />
         </div>
       </div>
 
-      <div className="flex justify-end gap-2.5 pt-4 border-t border-[#edf0eb] dark:border-[#2a342c]">
+      <div className="flex justify-end gap-3 pt-4 border-t border-[#E2E6DF] dark:border-[#28312B]">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onCancel}
-          className="px-4 py-2.5 rounded-xl border border-[#dfe5dc] dark:border-[#2a342c] bg-white dark:bg-[#181c19] hover:bg-[#f8faf6] dark:hover:bg-[#232924] text-xs font-bold text-[#435047] dark:text-[#c4cec6] transition-all"
+          className="h-11 px-5 rounded-[12px] bg-[#EBF0E8] dark:bg-[#222A25] hover:bg-[#E2E6DF] dark:hover:bg-[#28312B] text-[14px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] transition-all cursor-pointer"
         >
           {t('cancel')}
         </motion.button>
@@ -189,10 +189,10 @@ export const GoalModal: React.FC<GoalModalProps> = ({ goal, lang, onSave, onCanc
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="submit"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#27694c] hover:bg-[#174d36] text-white text-xs font-bold shadow-[0_5px_14px_rgba(39,105,76,0.22)] transition-all"
+          className="inline-flex items-center gap-2 h-11 px-6 rounded-[12px] bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] text-[14px] font-sans font-semibold leading-none shadow-sm transition-all cursor-pointer"
         >
-          <AppIcon name="check" size={15} />
-          {goal ? t('update') : t('save')}
+          <AppIcon name="check" size={16} />
+          <span>{goal ? t('update') : t('save')}</span>
         </motion.button>
       </div>
     </form>

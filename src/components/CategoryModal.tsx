@@ -71,13 +71,13 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
       {error && (
-        <div className="p-3 rounded-xl bg-[#fff0ed] text-[#b84b40] text-xs font-semibold" role="alert">
+        <div className="p-3 rounded-[12px] bg-[#FDF1F0] dark:bg-[#2F1816] text-[#B94E48] dark:text-[#E06D67] text-[12px] font-sans font-medium text-left" role="alert">
           {error}
         </div>
       )}
 
       <div>
-        <label htmlFor="cat-name" className="block text-xs font-bold text-[#455047] mb-1.5">
+        <label htmlFor="cat-name" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
           {t('categoryName')}
         </label>
         <input
@@ -87,21 +87,21 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
           placeholder={t('categoryNamePlaceholder')}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+          className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all placeholder:text-[#5C665F]/50 dark:placeholder:text-[#B7C1B8]/40"
           required
         />
-        <p className="mt-1 text-[11px] text-[#788079]">{t('categoryNameHelp')}</p>
+        <p className="mt-1 text-[12px] font-sans text-[#5C665F] dark:text-[#B7C1B8] text-left">{t('categoryNameHelp')}</p>
       </div>
 
       <div>
-        <label htmlFor="cat-type" className="block text-xs font-bold text-[#455047] mb-1.5">
+        <label htmlFor="cat-type" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
           {t('categoryType')}
         </label>
         <select
           id="cat-type"
           value={type}
           onChange={(e) => setType(e.target.value as TransactionType)}
-          className="w-full h-11 px-3.5 bg-white border border-[#dfe5dc] rounded-xl text-sm font-semibold text-[#202923] focus:border-[#27694c] focus:ring-2 focus:ring-[#27694c]/10 outline-none transition-all"
+          className="w-full h-11 px-3.5 bg-white dark:bg-[#131313] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
         >
           <option value="expense">{t('expenseType')}</option>
           <option value="income">{t('incomeType')}</option>
@@ -109,7 +109,7 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
       </div>
 
       <div>
-        <label className="block text-xs font-bold text-[#455047] mb-2">
+        <label className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-2 text-left">
           {t('categoryColor')}
         </label>
         <div className="flex gap-2.5 flex-wrap">
@@ -119,24 +119,24 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
               type="button"
               onClick={() => setColor(c)}
               aria-label={c}
-              className="w-8 h-8 rounded-full transition-transform active:scale-95"
+              className="w-8 h-8 rounded-full transition-transform active:scale-95 cursor-pointer"
               style={{
                 backgroundColor: c,
-                border: color === c ? '3px solid #202923' : '3px solid white',
-                boxShadow: '0 0 0 1px #dfe5dc',
+                border: color === c ? '3px solid #167C35' : '3px solid white',
+                boxShadow: '0 0 0 1px #E2E6DF',
               }}
             />
           ))}
         </div>
       </div>
 
-      <div className="flex justify-end gap-2.5 pt-4 border-t border-[#edf0eb] dark:border-[#2a342c]">
+      <div className="flex justify-end gap-3 pt-4 border-t border-[#E2E6DF] dark:border-[#28312B]">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onCancel}
-          className="px-4 py-2.5 rounded-xl border border-[#dfe5dc] dark:border-[#2a342c] bg-white dark:bg-[#181c19] hover:bg-[#f8faf6] dark:hover:bg-[#232924] text-xs font-bold text-[#435047] dark:text-[#c4cec6] transition-all"
+          className="h-11 px-5 rounded-[12px] bg-[#EBF0E8] dark:bg-[#222A25] hover:bg-[#E2E6DF] dark:hover:bg-[#28312B] text-[14px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] transition-all cursor-pointer"
         >
           {t('cancel')}
         </motion.button>
@@ -144,10 +144,10 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="submit"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#27694c] hover:bg-[#174d36] text-white text-xs font-bold shadow-[0_5px_14px_rgba(39,105,76,0.22)] transition-all"
+          className="inline-flex items-center gap-2 h-11 px-6 rounded-[12px] bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] text-[14px] font-sans font-semibold leading-none shadow-sm transition-all cursor-pointer"
         >
-          <AppIcon name="check" size={15} />
-          {category ? t('update') : t('save')}
+          <AppIcon name="check" size={16} />
+          <span>{category ? t('update') : t('save')}</span>
         </motion.button>
       </div>
     </form>

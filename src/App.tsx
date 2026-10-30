@@ -374,7 +374,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9faf5] dark:bg-[#121513] text-[#1a1c19] dark:text-[#eef1ec] flex flex-col md:flex-row pb-20 md:pb-0 transition-colors duration-150">
+    <div className="min-h-screen bg-[#F4F6F2] dark:bg-[#131313] text-[#171B18] dark:text-[#F0F0F0] flex flex-col md:flex-row pb-20 md:pb-0 transition-colors duration-150">
       {/* Toast Notification Region */}
       <ToastRegion
         toasts={toasts}
@@ -523,7 +523,6 @@ export default function App() {
               <CategoriesView
                 categories={state.categories}
                 transactions={state.transactions}
-                budgets={state.budgets}
                 lang={lang}
                 onAddCategory={() => {
                   setEditingCategory(null);

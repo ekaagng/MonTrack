@@ -1,13 +1,21 @@
 import React from 'react';
 
+export type IconName = string;
+
 export const iconPaths: Record<string, string> = {
   logo: '<path d="M4 14.5 9.2 3.8l2.2 5.1 3-5.1 5.6 10.7h-5.2l-1.8-3.3-1.8 3.3H4Z"/><path d="M6 18.3h12"/>',
   grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
+  dashboard: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
   list: '<path d="M8 6h12M8 12h12M8 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-width="3"/>',
+  transactions: '<path d="M8 6h12M8 12h12M8 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-width="3"/>',
   wallet: '<rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 14h.01"/><path d="M6 5V4.5A1.5 1.5 0 0 1 7.5 3H18"/>',
+  budgets: '<rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 14h.01"/><path d="M6 5V4.5A1.5 1.5 0 0 1 7.5 3H18"/>',
   target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  goals: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
   chart: '<path d="M4 19.5h16M6.5 16V10m5 6V4m5 12v-8" stroke-linecap="round"/>',
+  reports: '<path d="M4 19.5h16M6.5 16V10m5 6V4m5 12v-8" stroke-linecap="round"/>',
   tag: '<path d="M20 13 13 20l-9-9V4h7l9 9Z"/><circle cx="8" cy="8" r="1"/>',
+  categories: '<path d="M20 13 13 20l-9-9V4h7l9 9Z"/><circle cx="8" cy="8" r="1"/>',
   settings: '<path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="m19.4 15 .1.1 1.1.9-1.3 2.2-1.4-.6a8.2 8.2 0 0 1-1.6.9l-.3 1.5h-2.6l-.3-1.5a8.2 8.2 0 0 1-1.6-.9l-1.4.6-1.3-2.2 1.1-.9a7.4 7.4 0 0 1 0-1.9l-1.1-.9 1.3-2.2 1.4.6a8.2 8.2 0 0 1 1.6-.9l.3-1.5H16l.3 1.5a8.2 8.2 0 0 1 1.6.9l1.4-.6 1.3 2.2-1.1.9a7.4 7.4 0 0 1-.1 1.8Z" transform="translate(-1 -1) scale(1.05)"/>',
   menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',

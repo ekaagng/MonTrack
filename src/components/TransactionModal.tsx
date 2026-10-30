@@ -23,7 +23,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const t = (k: string) => getTranslation(k, lang);
 
   const [type, setType] = useState<TransactionType>(transaction?.type || 'expense');
-  // Raw numeric string for amount
   const [rawAmount, setRawAmount] = useState<string>(
     transaction ? String(transaction.amount) : ''
   );
@@ -40,7 +39,6 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     }
   }, [type, eligibleCategories, categoryId]);
 
-  // Format amount with Indonesian periods (e.g. 1.450.000)
   const displayAmount = rawAmount
     ? Number(rawAmount.replace(/\D/g, '')).toLocaleString('id-ID')
     : '';
@@ -83,8 +81,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
-      {/* Type Toggle: Segmented Control with Smooth Motion */}
-      <div className="grid grid-cols-2 gap-2 p-1 bg-[#edeee9] dark:bg-[#232925] rounded-[14px]" role="group" aria-label={t('type')}>
+      {/* Type Toggle: Segmented Control */}
+      <div className="grid grid-cols-2 gap-1.5 p-1 bg-[#EBF0E8] dark:bg-[#222A25] rounded-[12px] border border-[#E2E6DF] dark:border-[#28312B]" role="group" aria-label={t('type')}>
         <motion.button
           whileTap={{ scale: 0.96 }}
           type="button"
@@ -92,14 +90,14 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             setType('expense');
             setErrors({});
           }}
-          className={`flex items-center justify-center gap-2 py-2.5 rounded-[12px] text-xs font-bold transition-all ${
+          className={`flex items-center justify-center gap-2 py-2 rounded-[10px] text-[13px] font-sans font-semibold transition-all cursor-pointer ${
             type === 'expense'
-              ? 'bg-white dark:bg-[#181c19] text-[#db815e] shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
-              : 'text-[#606c64] dark:text-[#88938a] hover:text-[#1a1c19] dark:hover:text-[#eef1ec]'
+              ? 'bg-white dark:bg-[#1B211D] text-[#B94E48] dark:text-[#E06D67] shadow-xs'
+              : 'text-[#5C665F] dark:text-[#B7C1B8] hover:text-[#171B18] dark:hover:text-[#F0F0F0]'
           }`}
         >
           <AppIcon name="expense" size={15} />
-          {t('expenseType')}
+          <span>{t('expenseType')}</span>
         </motion.button>
         <motion.button
           whileTap={{ scale: 0.96 }}
@@ -108,24 +106,24 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             setType('income');
             setErrors({});
           }}
-          className={`flex items-center justify-center gap-2 py-2.5 rounded-[12px] text-xs font-bold transition-all ${
+          className={`flex items-center justify-center gap-2 py-2 rounded-[10px] text-[13px] font-sans font-semibold transition-all cursor-pointer ${
             type === 'income'
-              ? 'bg-white dark:bg-[#181c19] text-[#287448] shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
-              : 'text-[#606c64] dark:text-[#88938a] hover:text-[#1a1c19] dark:hover:text-[#eef1ec]'
+              ? 'bg-white dark:bg-[#1B211D] text-[#167C35] dark:text-[#00B000] shadow-xs'
+              : 'text-[#5C665F] dark:text-[#B7C1B8] hover:text-[#171B18] dark:hover:text-[#F0F0F0]'
           }`}
         >
           <AppIcon name="income" size={15} />
-          {t('incomeType')}
+          <span>{t('incomeType')}</span>
         </motion.button>
       </div>
 
-      {/* Financial Input Variant: Large display field with persistent Rp prefix */}
+      {/* Financial Input: Large display field with persistent Rp prefix */}
       <div>
-        <label htmlFor="tx-amount" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#606c64] dark:text-[#a0aba2] uppercase mb-1.5 text-left">
+        <label htmlFor="tx-amount" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
           {t('amount')} ({lang === 'en' ? 'IDR' : 'Rupiah'})
         </label>
         <div className="relative flex items-center">
-          <span className="absolute left-4 text-[#606c64] dark:text-[#a0aba2] font-heading font-bold text-base select-none pointer-events-none">
+          <span className="absolute left-4 text-[#5C665F] dark:text-[#B7C1B8] font-heading font-bold text-base select-none pointer-events-none">
             {lang === 'en' ? 'IDR' : 'Rp'}
           </span>
           <input
@@ -136,17 +134,17 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             value={displayAmount}
             onChange={handleAmountChange}
             aria-invalid={!!errors.amount}
-            className="w-full h-12 sm:h-[50px] pl-14 pr-4 bg-white border-[1.5px] border-[#e7ebe4] rounded-[12px] text-[20px] sm:text-[22px] font-heading font-bold tabular-nums text-[#1a1c19] focus:border-[#27694c] focus:ring-[3px] focus:ring-[#e9f3ec] outline-none transition-all placeholder:text-[#939f97]"
+            className="w-full h-12 pl-14 pr-4 bg-white dark:bg-[#161B18] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[20px] sm:text-[22px] font-heading font-bold tabular-nums text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all placeholder:text-[#5C665F]/40"
             required
           />
         </div>
-        {errors.amount && <p className="mt-1 text-[11px] font-sans font-medium text-[#b84b40] text-left">{errors.amount}</p>}
+        {errors.amount && <p className="mt-1 text-[11px] font-sans font-medium text-[#B94E48] dark:text-[#E06D67] text-left">{errors.amount}</p>}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
         {/* Date */}
         <div>
-          <label htmlFor="tx-date" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#606c64] dark:text-[#a0aba2] uppercase mb-1.5 text-left">
+          <label htmlFor="tx-date" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('date')}
           </label>
           <input
@@ -158,15 +156,15 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               setErrors((prev) => ({ ...prev, date: '' }));
             }}
             aria-invalid={!!errors.date}
-            className="w-full h-11 sm:h-12 px-3.5 bg-white border-[1.5px] border-[#e7ebe4] rounded-[12px] text-[14px] font-sans font-medium text-[#1a1c19] focus:border-[#27694c] focus:ring-[3px] focus:ring-[#e9f3ec] outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#161B18] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all"
             required
           />
-          {errors.date && <p className="mt-1 text-[11px] font-sans font-medium text-[#b84b40] text-left">{errors.date}</p>}
+          {errors.date && <p className="mt-1 text-[11px] font-sans font-medium text-[#B94E48] dark:text-[#E06D67] text-left">{errors.date}</p>}
         </div>
 
         {/* Category */}
         <div>
-          <label htmlFor="tx-category" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#606c64] dark:text-[#a0aba2] uppercase mb-1.5 text-left">
+          <label htmlFor="tx-category" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('category')}
           </label>
           <select
@@ -177,7 +175,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               setErrors((prev) => ({ ...prev, category: '' }));
             }}
             aria-invalid={!!errors.category}
-            className="w-full h-11 sm:h-12 px-3.5 bg-white border-[1.5px] border-[#e7ebe4] rounded-[12px] text-[14px] font-sans font-medium text-[#1a1c19] focus:border-[#27694c] focus:ring-[3px] focus:ring-[#e9f3ec] outline-none transition-all"
+            className="w-full h-11 px-3.5 bg-white dark:bg-[#161B18] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans font-medium text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] outline-none transition-all cursor-pointer"
             required
           >
             {eligibleCategories.map((c) => (
@@ -186,12 +184,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               </option>
             ))}
           </select>
-          {errors.category && <p className="mt-1 text-[11px] font-sans font-medium text-[#b84b40] text-left">{errors.category}</p>}
+          {errors.category && <p className="mt-1 text-[11px] font-sans font-medium text-[#B94E48] dark:text-[#E06D67] text-left">{errors.category}</p>}
         </div>
 
         {/* Note */}
         <div className="sm:col-span-2">
-          <label htmlFor="tx-note" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#606c64] dark:text-[#a0aba2] uppercase mb-1.5 text-left">
+          <label htmlFor="tx-note" className="block text-[12px] sm:text-[13px] font-sans font-medium tracking-wider text-[#5C665F] dark:text-[#B7C1B8] uppercase mb-1.5 text-left">
             {t('noteOptional')}
           </label>
           <input
@@ -201,28 +199,28 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             placeholder={t('transactionNotePlaceholder')}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="w-full h-11 sm:h-12 px-4 bg-white border-[1.5px] border-[#e7ebe4] rounded-[12px] text-[14px] font-sans text-[#1a1c19] focus:border-[#27694c] focus:ring-[3px] focus:ring-[#e9f3ec] outline-none transition-all placeholder:text-[#939f97]"
+            className="w-full h-11 px-4 bg-white dark:bg-[#161B18] border border-[#E2E6DF] dark:border-[#28312B] rounded-[12px] text-[14px] font-sans text-[#171B18] dark:text-[#F0F0F0] focus:border-[#167C35] dark:focus:border-[#00B000] focus:ring-[3px] focus:ring-[#EBF6EE] dark:focus:ring-[#14291B] outline-none transition-all placeholder:text-[#5C665F]/40"
           />
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 pt-4 border-t border-[#e7ebe4] dark:border-[#2a342c]">
-        {/* Secondary / Soft Button */}
+      <div className="flex justify-end gap-3 pt-4 border-t border-[#E2E6DF] dark:border-[#28312B]">
+        {/* Soft Cancel Button */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onCancel}
-          className="h-11 px-5 rounded-[12px] bg-[#e9f3ec] dark:bg-[#183626] hover:bg-[#d8ebd9] dark:hover:bg-[#204430] text-[14px] font-sans font-semibold text-[#27694c] dark:text-[#92d5b1] transition-all"
+          className="h-11 px-5 rounded-[12px] bg-[#EBF0E8] dark:bg-[#222A25] hover:bg-[#E2E6DF] dark:hover:bg-[#28312B] text-[14px] font-sans font-semibold text-[#171B18] dark:text-[#F0F0F0] transition-all cursor-pointer"
         >
           {t('cancel')}
         </motion.button>
-        {/* Primary Button */}
+        {/* Primary Save Button */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
           type="submit"
-          className="inline-flex items-center gap-2 h-11 px-6 rounded-[12px] bg-[#27694c] hover:bg-[#174d36] text-white text-[14px] font-sans font-semibold leading-none shadow-[0_4px_16px_rgba(39,105,76,0.25)] transition-all"
+          className="inline-flex items-center gap-2 h-11 px-6 rounded-[12px] bg-[#167C35] hover:bg-[#11632a] dark:bg-[#00B000] dark:hover:bg-[#009900] text-white dark:text-[#131313] text-[14px] font-sans font-semibold leading-none shadow-sm transition-all cursor-pointer"
         >
           <AppIcon name="check" size={16} />
           <span>{transaction ? t('update') : t('save')}</span>
